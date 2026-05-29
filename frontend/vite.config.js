@@ -9,6 +9,6 @@ config();
 export default defineConfig({
     plugins: [react()],
     define: {
-        "process.env.CLIENT_ID": JSON.stringify(process.env.CLIENT_ID)
+        "ENV_CLIENT_ID": JSON.stringify(process.env.CLIENT_ID)
     }
 })
