@@ -10,5 +10,17 @@ export default defineConfig({
     plugins: [react()],
     define: {
         "ENV_CLIENT_ID": JSON.stringify(process.env.CLIENT_ID)
+    },
+    server: {
+        proxy: {
+            "/auth": {
+                target: "http://127.0.0.1:3000",
+                changeOrigin: true,
+            },
+            "/api": {
+                target: "http://127.0.0.1:3000",
+                changeOrigin: true,
+            }
+        },
     }
 })

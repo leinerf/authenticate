@@ -1,20 +1,19 @@
 import React from 'react';
-
+import axios from 'axios'
 //Components
 import Auth from './Auth';
 import Profile from './Profile';
 
+
 // Styling
 import './App.css';
 
-function App() {
+function  App() {
   const username = localStorage.getItem("username");
-  const email = localStorage.getItem("user-email");
-  const jwt = localStorage.getItem("user-jwt");
-
+  const email = localStorage.getItem("user-email"); 
   return (  
     <div className="landing center-content">
-      {!jwt ? <Auth/> : <Profile username={username} email={email} />}  
+      {!username ? <Auth/> : <Profile username={username} email={email} />}  
     </div>
   )
 }

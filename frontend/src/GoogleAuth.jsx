@@ -27,16 +27,14 @@ function GoogleAuth({redirectURL, authType}) {
 
         //TODO: verify in the backside
         // const resp = await axios.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token);
-        
-        const resp = await axios.post(`http://localhost:3000/api/${authType}?access_token=${token}`);
+        // const agent = new HttpsProxyAgent('http://localhost:3000');
+        const resp = await axios.post(`/auth/${authType}?access_token=${token}`);
         console.log(resp.data);
         if(resp.data.verified_email){
-            const { username, email, token } = resp.data;
-            console.log("save info in localStorage")
+            const { username, email } = resp.data;
             //save to local storage and go forward
             localStorage.setItem("username", username)
             localStorage.setItem("user-email", email)
-            localStorage.setItem("user-jwt", token)
             navigate(redirectURL);
         }
     }

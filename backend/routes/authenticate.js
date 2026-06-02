@@ -13,7 +13,14 @@ export default (db) => {
             if (user) {
                 const { username, email, id } = user.toJSON();
                 const userToken = createJWT({ username, email, id });
-                return res.json({ verified_email: true, username, email, token: userToken });
+                console.log("it gets here")
+                console.log(userToken);
+                return res.cookie('auth_jwt', userToken, {
+                    httpOnly: true,
+                    secure: true,
+                    maxAge: 60 * 60 * 1000 // 1 hour
+                }).json({ verified_email: true, username, email });
+
             }
         }
         return res.json({ verified_email: false });
@@ -30,8 +37,14 @@ export default (db) => {
                 email,
                 password: "google-auth"
             })
+            const { id } = user.toJSON();
             const userToken = createJWT({ username, email, id })
-            return res.json({ verified_email: true, username, email, token: userToken });
+            console.log("it gets here")
+            return res.cookie('auth_jwt', userToken, {
+                httpOnly: true,
+                secure: true,
+                maxAge: 60 * 60 * 1000 // 1 hour
+            }).json({ verified_email: true, username, email });
         }
 
         return res.json({ verified_email: false });
